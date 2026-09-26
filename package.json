@@ -1,0 +1,15 @@
+{
+  "name": "ui-service.keys",
+  "version": "0.0.0-private",
+  "private": true,
+  "type": "module",
+  "files": [
+    "src/ui-plugins/keys.js"
+  ],
+  "scripts": {
+    "test": "node scripts/verify.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
