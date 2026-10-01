@@ -1,0 +1,4 @@
+{
+  "kind": "ui-service",
+  "entry": "ui-plugins/keys.js"
+}

@@ -5,12 +5,21 @@
   "source_worktree_status": [],
   "repository": "ui-service.keys",
   "files_sha256": {
-    ".github/workflows/verify.yml": "b737a9f83062bdb3437455e7abab0362ee806c4663fe80af564ea77a353765b3",
+    ".github/workflows/release.yml": "389609993160480e4ff9a918e5ce91c2967207b3120cff633902d9c657e30b39",
+    ".gitignore": "eb23201bf8045bae97d6f115436fbeceb52a080b218644bf1b15f92b9da8dd4e",
     "CONTEXT.md": "bd0aa37c6b1065e7492da1338daaafbdd2ebb8f9c9a6b5d0f183a2ba2391e395",
-    "LICENSING.md": "0bddd694c9d8b704519bf4b02a97cb8e0896867f1e102c3b6849c9088eb1f830",
-    "README.md": "455f35cf78a201821bd9b50d967aa8e5a4d6448c838e91df89d02cc913669bb0",
-    "package.json": "de59a73cd9b113cf7b2e46f1f7989b59ec9513d71529df248d318a3a799c3e53",
-    "scripts/verify.mjs": "013b1e5f03f30ff84bbd0abf648c3ba36fab4b6053d02a5805eba0563a321faa",
-    "src/ui-plugins/keys.js": "73116c1574790814228b9eebb40f92ab85c1cdee7f380f396e02a0759e801f57"
-  }
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "LICENSING.md": "d4fd2edc5d99638f92d514cfa5c210d893e65f109a3640717eec4978ad2f849b",
+    "NOTICE": "1e4407cfb901d0cde01b7f78d7c2d4b4a2c26e376fb18a7dfa77221448e8e56a",
+    "NOTICE-EVIDENCE.json": "7119a76077e87310252abc640d64c70e23e180071f17b9df8fc0ed2e914261cd",
+    "PUBLISHING.md": "bd53609e046de8dffc3d281d2bff686cdd58439bf853617b0c2fde0478e63458",
+    "README.md": "868ac5699f3b96c4eb7e71548ec7ad1e374c21d7a939f90defc5e3f1a4d34ddc",
+    "package.json": "adcf6c40de80cb8ae0632555b4324a895d14b36e19dc0dc7dce95f4466de03e8",
+    "release.json": "49b2ea2ca3106446f46a9029f7dc0ba37f0dbd1fbf5b90fa392dbca69424d6d6",
+    "scripts/release.py": "45e25fd41691c02c8487ac9365cd74e5cb3c4ea8f602005ab764438e25b90be8",
+    "scripts/verify.mjs": "fac66a35e7c1487b339d40848b77aaa22b60643aadf4544534ea63429e5c6733",
+    "src/ui-plugins/keys.js": "73116c1574790814228b9eebb40f92ab85c1cdee7f380f396e02a0759e801f57",
+    "test/test_release.py": "330586a32413735fdaf28df1071ff8ddd16a7b020fdfa1af92849a277faf80da"
+  },
+  "publication_preparation_source_revision": "ca48dbf190aa66e948a04d2f82a624295b7b6464"
 }

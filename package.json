@@ -1,15 +1,16 @@
 {
   "name": "ui-service.keys",
-  "version": "0.0.0-private",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
   "private": true,
   "type": "module",
   "files": [
     "src/ui-plugins/keys.js"
   ],
   "scripts": {
-    "test": "node scripts/verify.mjs"
+    "test": "node scripts/verify.mjs && python3 -m unittest discover -s test -p 'test_*.py'"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   }
 }
