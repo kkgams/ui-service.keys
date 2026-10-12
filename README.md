@@ -4,8 +4,8 @@ Initial prerelease extraction of the GAMS `ui-service` Project Unit from
 `ui-plugins/keys.js`. Source behavior is intentionally unchanged.
 ## Install mapping
 
-Prospective local candidate: `ui-service.keys-0.2.0.zip` and `SHA256SUMS` for
-`v0.2.0` (prepared, not yet published). After separately approved publication,
+Prospective local candidate: `ui-service.keys-0.2.1.zip` and `SHA256SUMS` for
+`v0.2.1` (prepared, not yet published). After separately approved publication,
 download and verify the checksum. Unpack into a separate staging
 folder: copy its deployment files to the same Project-relative paths, and keep its
 LICENSE, NOTICE, README.md and unit.json under `notices/project-units/ui-service.keys/`.
