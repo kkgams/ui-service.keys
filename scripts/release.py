@@ -17,11 +17,11 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def approved(root):
+def legal_files(root):
     for name in ('LICENSE', 'NOTICE'):
-        expected = os.environ['APPROVED_' + name + '_SHA256']
-        if not re.fullmatch('[0-9a-f]{64}', expected) or digest((root / name).read_bytes()) != expected:
-            raise ValueError(f'{name} owner-approved digest missing or mismatched')
+        path = root / name
+        if path.is_symlink() or not path.is_file() or not path.read_bytes().strip():
+            raise ValueError(f'required nonempty regular file: {name}')
     if 'PROVENANCE_PENDING' in (root / 'NOTICE').read_text():
         raise ValueError('theme provenance audit pending')
 
@@ -38,7 +38,7 @@ def payload(root, tag):
         raise ValueError('tag/version mismatch')
     if package['license'] != 'Apache-2.0' or package['private'] is not True:
         raise ValueError('invalid package licensing/publication policy')
-    approved(root)
+    legal_files(root)
     evidence_bytes = (root / 'NOTICE-EVIDENCE.json').read_bytes()
     if ('NOTICE-EVIDENCE.json SHA-256: ' + digest(evidence_bytes)) not in (root / 'NOTICE').read_text():
         raise ValueError('NOTICE does not bind current evidence')
@@ -117,16 +117,14 @@ def check(root, out, tag):
         raise ValueError('non-deterministic candidate metadata')
 
 
-def branch(tag):
+def identity(tag):
     package = json.loads((Path(__file__).resolve().parents[1] / 'package.json').read_text())
     if tag != 'v' + package['version']:
         raise ValueError('tag/version mismatch')
-    subprocess.run(['git', 'fetch', '--no-tags', 'origin', 'refs/heads/release'], check=True)
     head = subprocess.check_output(['git', 'rev-parse', 'HEAD']).strip()
-    release = subprocess.check_output(['git', 'rev-parse', 'FETCH_HEAD']).strip()
     tagged = subprocess.check_output(['git', 'rev-parse', tag + '^{commit}']).strip()
-    if head != release or head != tagged or head.decode() != os.environ['GITHUB_SHA']:
-        raise ValueError('tag must match current release branch HEAD and workflow SHA')
+    if head != tagged or head.decode() != os.environ['GITHUB_SHA']:
+        raise ValueError('tag must match checkout HEAD and workflow SHA')
 
 
 def absent(repository, tag, token):
@@ -148,14 +146,14 @@ def absent(repository, tag, token):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('command', choices=['stage', 'check', 'branch', 'absent'])
+    parser.add_argument('command', choices=['stage', 'check', 'identity', 'absent'])
     parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument('--out', type=Path, default=Path('dist/candidate'))
     parser.add_argument('--tag', required=True)
     args = parser.parse_args()
     if args.command in ('stage', 'check'):
         globals()[args.command](args.root.resolve(), args.out, args.tag)
-    elif args.command == 'branch':
-        branch(args.tag)
+    elif args.command == 'identity':
+        identity(args.tag)
     else:
         absent(os.environ['GITHUB_REPOSITORY'], args.tag, os.environ['GH_TOKEN'])

@@ -1,3 +1,38 @@
+# Publishing procedure — current policy
+
+Pushing the matching `v0.2.1` version tag authorizes publication from any
+branch. No manual checksum/boolean approval environment, Actions digest variables
+or required release-branch HEAD is needed. This supersedes the historical
+approval and branch instructions below; it does not authorize an agent to commit,
+tag, push or publish without an explicit user instruction.
+
+Branch and PR CI run `npm test`, stage, independently check and upload candidates.
+Only matching version-tag CI publishes, checking tag/checkout/workflow identity
+and repository identity. The automatic GitHub token performs release operations.
+Existing releases (including drafts) and API errors block publication; never move
+a tag or overwrite assets. Source closure, evidence/NOTICE binding, exact legal
+payload bytes, deterministic ZIPs, SHA256SUMS and no-overwrite staging remain
+strict. LICENSE and NOTICE must be nonempty regular files. No source or legal
+snapshot is refreshed by this migration.
+
+Local rehearsal needs Node.js 24 and Python 3, no approval environment, and a new
+output directory:
+
+```sh
+npm test
+python3 scripts/release.py stage --tag v0.2.1 --out dist/new-candidate
+python3 scripts/release.py check --tag v0.2.1 --out dist/new-candidate
+```
+
+ZIP deployment paths and notices installation are unchanged. Local checks do not
+establish hosted CI or GUI/Host consumption.
+
+# Historical preparation and authorization records
+
+The following records describe prior policy and validation, not current release
+prerequisites. Their approval variables and release-branch instructions are
+superseded above; their provenance and limitations remain unchanged.
+
 # Owner publishing procedure
 
 Distribution is a GitHub Release ZIP, not npm registry or OCI. Prepared version:
