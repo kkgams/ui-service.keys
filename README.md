@@ -1,69 +1,23 @@
 # ui-service.keys
 
-Initial prerelease extraction of the GAMS `ui-service` Project Unit from
-`ui-plugins/keys.js`. Source behavior is intentionally unchanged.
-## Local development
+Dispatches configured keyboard shortcuts to GAMS actions. A UI Service for [GAMS](https://github.com/kkgams/gams); Host APIs and separately configured Units are not bundled.
 
-`make open` opens this repository's `gams.json` in `tools/gams.app` on macOS
-Apple Silicon, downloading the released Host only when absent and retaining its
-notices. It selects the local Unit source with pinned released dependencies;
-no sibling checkout or local build is required. `GAMS_APP_CWD` is set explicitly.
+| Service | Source / deployed entry | Screenshot | License | Original work |
+| --- | --- | --- | --- | --- |
+| `ui.keys` | [`src/ui-plugins/keys.js`](src/ui-plugins/keys.js) → `ui-plugins/keys.js` | Not applicable | [Apache-2.0](LICENSE), [NOTICE](NOTICE) | [Romāns Potašovs / GAMS](https://github.com/justgook/gamectl) |
 
-`make serve-docs` previews `docs/` with pinned `justgook/wiki` v1.4.0;
-`DOCS_PORT` defaults to 8080. `make validate-docs` validates it and `make docs`
-builds `build/site/`. Every push to `release` publishes this site through Pages,
-independently of version tags. See `docs/index.md` for setup and checks.
+## Development
 
-## Install mapping
+Requires Make, Node.js 24, Python 3, curl, zip/unzip and shasum. Documentation downloads pinned justgook/wiki v1.4.0 on first use. Local launch requires macOS Apple Silicon and network access for the released Host and pinned supporting Units.
 
-Prospective local candidate: `ui-service.keys-0.2.1.zip` and `SHA256SUMS` for
-`v0.2.1` (prepared, not yet published). After matching version-tag publication,
-download and verify the checksum. Unpack into a separate staging
-folder: copy its deployment files to the same Project-relative paths, and keep its
-LICENSE, NOTICE, README.md and unit.json under `notices/project-units/ui-service.keys/`.
-Do not unpack metadata over the Project's own README or license. The entry is
-`ui-plugins/keys.js` (the archive strips `src/`). Configure that path in Project Config.
-The example's checksum-pinned installer performs these steps for all Units.
-Install dependencies listed below separately; they are not bundled.
-The Host source contract targeted is 2.0.3; package-level GUI validation is a release
-gate, not a claim about every future Host. See `PUBLISHING.md` for release gates.
+| Command | Purpose |
+| --- | --- |
+| `make open` | Open local `gams.json` using the released Host; preserve existing Host tools. |
+| `make check` | Check service JavaScript syntax. |
+| `make package` | Build the stable-name ZIP and `SHA256SUMS` under `build.nosync/`. |
+| `make serve-docs DOCS_PORT=8080` | Preview the wiki on an independent port. |
+| `make docs` | Build the wiki under `build.nosync/site/`. |
+| `make validate-docs` | Validate wiki configuration and links. |
+| `make clean` | Remove generated `build.nosync/` and marked Host/configured Unit downloads; refuse unidentified tools/caches, tracked files and symlinks. |
 
-## Current prerelease Host contract
-
-This Unit runs inside the GAMS Host. Absolute JavaScript imports under `/core`,
-`/util`, and `/widgets` are Host-owned package-library APIs and are deliberately not
-vendored here. In particular, `/core/runtime.js` supplies plugin calls. There is no
-arbitrary shared SDK repository. The Host must also provide the browser DOM/custom
-elements environment and base/theme semantic CSS contract expected by the source.
-
-Repository dependencies in this extraction set:
-- `plugin.fs`
-- `plugin.lua`
-- `ui-service.context`
-
-These are repository names only. Deployed JavaScript filenames and Project Config ids
-remain unchanged. The list records actual static configuration/call boundaries; it
-does not claim that every interaction has a standalone dynamic integration test.
-
-## Verify
-
-Requires Node.js 24 and Python 3 (stdlib only).
-
-```sh
-npm test
-```
-
-Verification scans Unit-owned `src/` assets plus its test script/package/workflow
-metadata, checks each JavaScript file in that boundary with `node --check`, rejects
-unresolved or escaping local imports/assets, permits only the documented Host
-absolute import roots, and resolves non-data CSS `url(...)` assets. Git internals,
-dependency installs, and build outputs are outside the scan boundary.
-
-## Release status
-
-GAMS-authored code is Apache-2.0. `package.json` remains private: distribution is a
-GitHub Release ZIP, never npm or OCI. Pushing a matching version tag authorizes publication from any branch, without
-manual approval digest variables. Tests, source/evidence and exact LICENSE/NOTICE
-payload checks, SHA256SUMS and no-overwrite protection remain required. Identified third-party terms are
-retained in NOTICE, including 98.css MIT terms for the theme. See `LICENSING.md`
-and `PUBLISHING.md`.
+The local Project loads canonical service source, with supporting published Units pinned in `gams.json`. `make open` explicitly sets `GAMS_APP_CWD` and `GAMS_CONFIG`; no sibling checkout is required. Clean preserves supplied tools and Units by refusing unidentified configured downloads; unrelated caches are untouched. No Host GUI validation is implied by syntax checks.

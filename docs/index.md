@@ -1,38 +1,30 @@
 ---
-title: ui-service.keys development
+title: ui-service.keys
 status: reference
 ---
 
-# ui-service.keys development
+# ui-service.keys
 
-## Open the local Project
+Dispatches configured keyboard shortcuts to GAMS actions. A UI Service for [GAMS](https://github.com/kkgams/gams); Host APIs and separately configured Units are not bundled.
 
-Run `make open` on macOS Apple Silicon. It opens this repository's `gams.json`
-using `tools/gams.app`, downloaded from the latest GAMS release only when absent.
-The release's accompanying notices remain in `tools/gams-release-notices/`.
-An existing Host is never updated implicitly; Gatekeeper settings are not changed.
-The launch explicitly sets `GAMS_APP_CWD` to this repository.
+| Service | Deployed entry | Original work |
+| --- | --- | --- |
+| `ui.keys` | `ui-plugins/keys.js` | [Romāns Potašovs / GAMS](https://github.com/justgook/gamectl) |
 
-The Project selects `src/ui-plugins/keys.js` directly; there are no compiled local artifacts
-or neighboring-checkout dependencies. The file browser supplies a minimal Host
-workspace, not a separate demo View. Its FS/layout plugins, remaining shell UI
-Services and theme are pinned to published release assets in `gams.json`.
-The first launch needs network access; downloaded Units live in ignored
-`gams_modules/`. Keyboard bindings are empty, so no Lua plugin is required.
+## Development
 
-## Check changes
+Requires Make, Node.js 24, Python 3, curl, zip/unzip and shasum. Documentation downloads pinned justgook/wiki v1.4.0 on first use. Local launch requires macOS Apple Silicon and network access for the released Host and pinned supporting Units.
 
-Run `make check` (Node.js 24 and Python 3) for the existing source and release
-checks. Runtime source, legal evidence and tag-publication policy are unchanged.
-See the repository's `PUBLISHING.md` for packaging and release gates.
+| Command | Purpose |
+| --- | --- |
+| `make open` | Open local `gams.json` using the released Host; preserve existing Host tools. |
+| `make check` | Check service JavaScript syntax. |
+| `make package` | Build the stable-name ZIP and `SHA256SUMS` under `build.nosync/`. |
+| `make serve-docs DOCS_PORT=8080` | Preview the wiki on an independent port. |
+| `make docs` | Build the wiki under `build.nosync/site/`. |
+| `make validate-docs` | Validate wiki configuration and links. |
+| `make clean` | Remove generated `build.nosync/` and marked Host/configured Unit downloads; refuse unidentified tools/caches, tracked files and symlinks. |
 
-## Documentation
+The local Project loads canonical service source, with supporting published Units pinned in `gams.json`. `make open` explicitly sets `GAMS_APP_CWD` and `GAMS_CONFIG`; no sibling checkout is required. Clean preserves supplied tools and Units by refusing unidentified configured downloads; unrelated caches are untouched. No Host GUI validation is implied by syntax checks.
 
-- `make serve-docs DOCS_PORT=8080` previews this `docs/` directory.
-- `make validate-docs` validates links and wiki configuration.
-- `make docs` builds the portable site in `build/site/`.
-
-These commands download pinned `justgook/wiki` v1.4.0 and require Make, curl, Bash,
-Node.js 24 and network access on the first run. `DOCS_PORT` is independent of the
-Host. Every push to `release` builds with `make docs` and deploys GitHub Pages;
-version-tag publication remains separate. Repository Pages must use Actions.
+Install deployment files from `ui-service.keys.zip` at their Project-relative paths and retain the archive’s notices separately from your Project’s own files. Supporting Units remain separate.
