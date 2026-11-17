@@ -18,6 +18,6 @@ Requires Make, Node.js 24, Python 3, curl, zip/unzip and shasum. Documentation d
 | `make serve-docs DOCS_PORT=8080` | Preview the wiki on an independent port. |
 | `make docs` | Build the wiki under `build.nosync/site/`. |
 | `make validate-docs` | Validate wiki configuration and links. |
-| `make clean` | Remove generated `build.nosync/` and marked Host/configured Unit downloads; refuse unidentified tools/caches, tracked files and symlinks. |
+| `make clean` | Remove entire `build.nosync/`, `tools/` and `gams_modules/`, including unmarked tools/caches; refuse tracked files and symlinks in all targets before deleting anything. |
 
-The local Project loads canonical service source, with supporting published Units pinned in `gams.json`. `make open` explicitly sets `GAMS_APP_CWD` and `GAMS_CONFIG`; no sibling checkout is required. Clean preserves supplied tools and Units by refusing unidentified configured downloads; unrelated caches are untouched. No Host GUI validation is implied by syntax checks.
+The local Project loads canonical service source, with supporting published Units pinned in `gams.json`. `make open` explicitly sets `GAMS_APP_CWD` and `GAMS_CONFIG`; no sibling checkout is required. Clean leaves files outside those three directories untouched. No Host GUI validation is implied by syntax checks.
