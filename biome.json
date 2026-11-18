@@ -1,0 +1,15 @@
+{
+  "root": true,
+  "files": {
+    "includes": ["src/**/*.js", "biome.json"]
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2
+  },
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded"
+    }
+  }
+}

@@ -184,7 +184,9 @@ export function createUiKeys(config) {
     },
     methods: {
       ping: async () => ({ ok: { bindings: bindings.length } }),
-      blurActiveElement: async () => ({ ok: { blurred: blurActiveTextInput() } }),
+      blurActiveElement: async () => ({
+        ok: { blurred: blurActiveTextInput() },
+      }),
     },
   }
 }
